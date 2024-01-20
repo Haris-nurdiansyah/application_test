@@ -319,7 +319,7 @@
         let education = {{( $biodata) ? count($biodata->last_educations) ?? 1 : 1 }};
         let training = {{ ($biodata) ? count($biodata->training_histories) ?? 1 : 1 }};
         let work = {{ ($biodata) ? count($biodata->work_histories) ?? 1 : 1 }};
-
+        console.log(training);
         $('#add-education').on('click', function () {
             education++;
             $('#table-education tbody').append(
@@ -340,7 +340,7 @@
         });
 
         $('#add-training').on('click', function () {
-            education++;
+            training++;
             $('#table-training tbody').append(
                 `<tr id="training-${training}">
                     <td><input placeholder="Nama Kursus" type="text" class="form-control" id="training_name[]" name="training_name[]" required></td>

@@ -27,11 +27,11 @@ Route::prefix('auth')->middleware('guest')->group(function () {
 
 Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
 
-Route::prefix('users')->middleware('auth')->group(function () {
+Route::prefix('users')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/', [UserController::class, 'index'])->name('users.index');
-    Route::get('/profille', [UserController::class, 'profile'])->name('users.profile');
-    Route::put('/profille', [UserController::class, 'update_profile'])->name('users.update_profile');
-    Route::put('/update-biodata/{id}', [UserController::class, 'update_biodata'])->name('users.update_biodata');
+    Route::get('/profille', [UserController::class, 'profile'])->name('users.profile')->withoutMiddleware('isAdmin');
+    Route::put('/profille', [UserController::class, 'update_profile'])->name('users.update_profile')->withoutMiddleware('isAdmin');
+    Route::put('/update-biodata/{id}', [UserController::class, 'update_biodata'])->name('users.update_biodata')->withoutMiddleware('isAdmin');
     Route::get('/edit-biodata/{id}', [UserController::class, 'edit_biodata'])->name('users.edit_biodata');
-    Route::delete('/delete/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::delete('/delete/{id}', [UserController::class, 'destroy'])->name('users.delete');
 });
